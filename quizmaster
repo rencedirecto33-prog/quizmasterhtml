@@ -1,0 +1,58 @@
+<body class="p-6 max-w-3xl mx-auto">
+
+<h1 class="text-3xl font-bold brand-header mb-4">
+QuizMaster – Pattao National High School
+</h1>
+
+<button onclick="resetAttempts()" class="bg-red-800 text-white px-4 py-2 rounded mb-6">
+Reset Attempts (Teacher)
+</button>
+
+<!-- Quiz Container -->
+<div id="quiz" class="space-y-6"></div>
+
+<script>
+// reset attempts
+function resetAttempts(){
+  const passcode = prompt("Enter teacher passcode to reset attempt:");
+  if (passcode === "300480"){
+    localStorage.removeItem('quizAttempt');
+    alert('✅ Attempt counter has been successfully reset!');
+  } else if (passcode !== null){
+    alert('❌ Incorrect passcode. Access denied.');
+  }
+}
+
+// quiz questions
+const questions = [
+  {id:1, q:"Which of the following is the basic unit of life?", options:["Tissue","Organ","Cell","System"], answer:2},
+  {id:2, q:"Which type of reaction absorbs heat from the surroundings?", options:["Exothermic","Endothermic","Combustion","Neutralization"], answer:1},
+  {id:3, q:"What is the SI unit of force?", options:["Joule","Newton","Watt","Pascal"], answer:1},
+  {id:4, q:"Which gas is released during photosynthesis?", options:["Carbon dioxide","Oxygen","Nitrogen","Hydrogen"], answer:1},
+  {id:5, q:"What is the formula for density?", options:["Mass × Volume","Volume ÷ Mass","Mass ÷ Volume","Mass − Volume"], answer:2},
+  {id:6, q:"Which part of the atom has a positive charge?", options:["Electron","Neutron","Proton","Nucleus"], answer:2},
+  {id:7, q:"Which of the following is a renewable resource?", options:["Coal","Petroleum","Natural gas","Solar energy"], answer:3},
+  {id:8, q:"What type of motion is shown by a swinging pendulum?", options:["Circular motion","Rectilinear motion","Periodic motion","Random motion"], answer:2},
+  {id:9, q:"Which vitamin is produced in the human body when skin is exposed to sunlight?", options:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"], answer:3},
+  {id:10, q:"Which organ in the human body is responsible for pumping blood?", options:["Brain","Lungs","Heart","Kidney"], answer:2}
+];
+
+// DISPLAY QUESTIONS
+const quizDiv = document.getElementById("quiz");
+
+questions.forEach((q, i) => {
+  quizDiv.innerHTML += `
+    <div class="p-4 border rounded bg-white">
+      <p class="font-semibold mb-2">${i + 1}. ${q.q}</p>
+      ${q.options.map(opt => `
+        <label class="block">
+          <input type="radio" name="q${i}" class="mr-2">
+          ${opt}
+        </label>
+      `).join("")}
+    </div>
+  `;
+});
+</script>
+
+</body>
